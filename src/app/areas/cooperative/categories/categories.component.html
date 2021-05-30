@@ -1,0 +1,95 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-sm-12">
+          <div class="card">
+              <div class="card-header">
+                  <h5>Digital Products</h5>
+              </div>
+              <div class="card-body">
+                  <div class="btn-popup pull-right">
+                      <button type="button" class="btn btn-secondary" data-toggle="modal" data-original-title="test"
+                          data-target="#exampleModal" (click)="open(content)">Add Category</button>
+                          <ng-template #content let-modal>
+                            <div class="modal-header">
+                                <h5 class="modal-title f-w-600" id="exampleModalLabel">Add Category</h5>
+                                <button type="button" class="close" aria-label="Close"
+                                    (click)="modal.dismiss('Cross click')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="needs-validation">
+                                    <div class="form">
+                                      <div class="form-group">
+                                        <label for="nale" class="mb-1">Category Name :</label>
+                                        <input class="form-control" [(ngModel)]="categorie.categoryName" id="name" name="name" type="text">
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" (click)="addCategorie()">Save</button>
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                    (click)="modal.dismiss('Cross click')">Close</button>
+                            </div>
+                        </ng-template>
+                  </div>
+                  
+                  <div id="batchDelete" class="category-table custom-datatable">
+                      <div class="table-responsive">
+                          <table class="table table-hovered">
+                              <thead>
+                                  <tr>
+                                      <th>id</th>
+                                      <th>Name</th>
+                                      <th>Edit</th>
+                                      <th>Delete</th>
+                                      <th>Details</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let item of categories" >
+                                      <td>{{item.categoryId}}</td>
+                                      <td>{{item.categoryName}}</td>
+                                      <td><a (click)="open2(content,item)" data-toggle="modal2"><i style="margin-left: 7px;" class="fa fa-edit"></i></a></td>
+                                      <td><a [routerLink]="" (click)="deleteCategorie(item.categoryId)"><i style="margin-left: 14px;" class="fa fa-trash"></i></a></td>
+                                      
+                                   </tr>
+                              </tbody>
+                          </table>
+                          <ng-template #content let-modal2>
+                            <div class="modal2-header">
+                                <h5 class="modal2-title f-w-600" id="exampleModalLabel">Edit Category</h5>
+                                <button type="button" class="close" aria-label="Close" 
+                                    (click)="modal2.dismiss('Cross click')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal2-body">
+                                <form class="needs-validation">
+                                    <div class="form">
+                                      <div class="form-group">
+                                        <label for="name" class="mb-1">Category Name :</label>
+                                        <input class="form-control" [(ngModel)]="categorie.categoryName" id="name" name="name" type="text">
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal2-footer">
+                                <button type="button" class="btn btn-primary" (click)="editCategorie()">Edit</button>
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal2"
+                                    (click)="modal2.dismiss('Cross click')">Close</button>
+                            </div>
+                        </ng-template>
+
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->
+

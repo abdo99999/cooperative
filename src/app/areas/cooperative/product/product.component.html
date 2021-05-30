@@ -1,0 +1,181 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Product Lists</h5>
+                </div>
+                <div class="card-body">
+                    <div class="btn-popup pull-right">
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-original-title="test"
+                            data-target="#exampleModal" (click)="open(content)">Add Product</button>
+                            <ng-template #content let-modal>
+                                <div class="modal-header">
+                                    <h5 class="modal-title f-w-600" id="exampleModalLabel">Add Product</h5>
+                                    <button type="button" class="close" aria-label="Close"
+                                        (click)="modal.dismiss('Cross click')">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="needs-validation">
+                                        <div class="form">
+                                            <div class="form-group">
+                                                <label for="ref" class="mb-1">Ref Produit:</label>
+                                                <input class="form-control" id="ref" name="ref" [(ngModel)]="produit.productReference" type="text">
+                                            </div>
+                                            
+                                           
+                                    <div class="form-group">
+                                        <label for="name" class="mb-1">ProductName:</label>
+                                        <input class="form-control " name="name" id="name"
+                                            type="text" [(ngModel)]="produit.productName"  required>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description" class="mb-1">ProductDescription:</label>
+                                        <input class="form-control" name="description" id="description"
+                                            type="text" [(ngModel)]="produit.productDescription" required>
+                                       
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price" class="mb-1">ProductPrice:</label>
+                                            <input class="form-control" name="price" id="price" [(ngModel)]="produit.productPrice"
+                                            type="text"  required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1">Quantity:</label>
+                                        <div class="qty-box1">
+                                            <div class="input-group">
+                                                <i class="fa fa-minus btnGtr1" (click)=decrement()></i>
+                                                <input class="touchspin1 text-center" name="qty" id="qty" [(ngModel)]="produit.productQuantity" [value]="counter"
+                                                    type="text">
+                                                <i class="fa fa-plus btnLess1" (click)=increment()></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1">ProductExpiredDate:</label>
+                                        <input class="form-control" name="date" id="date" [(ngModel)]="produit.productExpiredDate" 
+                                        type="date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1">ProductDiscount:</label>
+                                        <input class="form-control" name="discount" id="discount" [(ngModel)]="produit.productDiscount" 
+                                        type="text">
+                                    </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" (click)="addProduct()">Save</button>
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                        (click)="modal.dismiss('Cross click')">Close</button>
+                                </div>
+                            </ng-template>
+                    </div>
+                    <div id="batchDelete" class="custom-datatable">
+                        <div class="table-responsive">
+                            <table class="table table-hovered">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Ref</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Prix</th>
+                                        <th>Quantity</th>
+                                        <th>Discount</th>
+                                        <th>ExpiredDate</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of produits" >
+                                        <td>{{item.productId}}</td>
+                                        <td>{{item.productReference}}</td>
+                                        <td>{{item.productName}}</td>
+                                        <td>{{item.productDescription}}</td>
+                                        <td>{{item.productPrice}}</td>
+                                        <td>{{item.productQuantity}}</td>
+                                        <td>{{item.productDiscount}}</td>
+                                        <td>{{item.productExpiredDate}}</td>
+                                        <td><a (click)="open2(content)" data-toggle="modal"><i style="margin-left: 7px;" class="fa fa-edit"></i></a></td>
+                                        <td><a [routerLink]="" (click)="deleteProduct(item.productId)"><i style="margin-left: 14px;" class="fa fa-trash"></i></a></td>
+                                        <td><a [routerLink]="" (click)="GetProduct(item.productId)"><i style="margin-left: 14px;" class="fa fa-eye"></i></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ng-template #content let-modal>
+                                <div class="modal-header">
+                                    <h5 class="modal-title f-w-600" id="exampleModalLabel">Edit Product</h5>
+                                    <button type="button" class="close" aria-label="Close"
+                                        (click)="modal.dismiss('Cross click')">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="needs-validation">
+                                        <div class="form">
+                                            <div class="form-group">
+                                                <label for="ref" class="mb-1">Ref Produit:</label>
+                                                <input class="form-control" id="ref" name="ref" [(ngModel)]="produit.productReference" type="text">
+                                            </div>
+                                            
+                                           
+                                    <div class="form-group">
+                                        <label for="name" class="mb-1">ProductName:</label>
+                                        <input class="form-control " name="name" id="name"
+                                            type="text" [(ngModel)]="produit.productName"  required>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description" class="mb-1">ProductDescription:</label>
+                                        <input class="form-control" name="description" id="description"
+                                            type="text" [(ngModel)]="produit.productDescription" required>
+                                       
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price" class="mb-1">ProductPrice:</label>
+                                            <input class="form-control" name="price" id="price" [(ngModel)]="produit.productPrice"
+                                            type="text"  required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1">Quantity:</label>
+                                        <div class="qty-box1">
+                                            <div class="input-group">
+                                                <i class="fa fa-minus btnGtr1" (click)=decrement()></i>
+                                                <input class="touchspin1 text-center" name="qty" id="qty" [(ngModel)]="produit.productQuantity" [value]="counter"
+                                                    type="text">
+                                                <i class="fa fa-plus btnLess1" (click)=increment()></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1">ProductExpiredDate:</label>
+                                        <input class="form-control" name="date" id="date" [(ngModel)]="produit.productExpiredDate" 
+                                        type="date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1">ProductDiscount:</label>
+                                        <input class="form-control" name="discount" id="discount" [(ngModel)]="produit.productDiscount" 
+                                        type="text">
+                                    </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" (click)="addProduct()">Edit</button>
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                        (click)="modal.dismiss('Cross click')">Close</button>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
