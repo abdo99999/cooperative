@@ -1,0 +1,159 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Catégories/Sous-catégories</h5>
+                </div>
+                
+                <div ngbDropdown class="dropdown" style="margin-top: 10px;margin-left: 970px;">
+                  <button  class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                    Naviguer vers
+                  </button>
+                  <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" id="link1"  (click)="Hide()">Catégories</a>
+                    <a class="dropdown-item" id="link2"  (click)="Hide2()">Sous-Catégories</a>
+                  </div>
+                </div>
+           
+                <div id="categ" class="card-body">
+                    <div class="btn-popup pull-right">
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-original-title="test"
+                            data-target="#exampleModal" (click)="open(content)">Add Category</button>
+                            <ng-template #content let-modal>
+                              <div class="modal-header">
+                                  <h5 class="modal-title f-w-600" *ngIf="!result" id="exampleModalLabel">Add </h5>
+                                  <h5 class="modal-title f-w-600" *ngIf="result" id="exampleModalLabel">Edit </h5>
+                                  <button type="button" class="close" aria-label="Close"
+                                      (click)="modal.dismiss('Cross click')">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                  <form class="needs-validation" [formGroup]='form' (ngSubmit)="form.valid && Add()">
+                                      <div class="form">
+                                          <div class="form-group">
+                                              
+                                              <input 
+                                              
+                                              class="form-control" formControlName="id" [(ngModel)]="categorie.id" type="hidden">
+                                              
+                                          </div>
+                                        <div class="form-group">  
+                                          <label for="nale" class="mb-1">Category Name :</label>
+                                          <input 
+                                          [class.is-invalid]='form.get("categoryName").errors && form.get("categoryName").touched'
+                                          class="form-control" formControlName="categoryName" [(ngModel)]="categorie.categoryName" type="text">
+                                          <div class="invalid-feedback">Entrez une catégorie</div>
+                                      </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="submit" [disabled]="!form.valid" class="btn btn-primary" *ngIf="!result && !editmode && categ" >Save</button>
+                                          <button type="submit" class="btn btn-warning" *ngIf="result && editmode" >Edit</button>
+                                          <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                              (click)="modal.dismiss('Cross click')">Close</button>  
+                                      </div>
+                                  </form>
+                              </div>
+                              
+                          </ng-template>
+                    </div>
+                    
+                   
+                      
+                    
+                    
+                </div>
+
+                <div id="subcat" style="display: none;" class="card-body">
+                    <div class="btn-popup pull-right">
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-original-title="test"
+                            data-target="#exampleModal" (click)="openn(content2)">Add Subcategory</button>
+                            <ng-template #content2 let-modal> 
+                                <div class="modal-header">
+                                    <h5 class="modal-title f-w-600" *ngIf="!result" id="exampleModalLabel">Add SubCategory</h5>
+                                    <h5 class="modal-title f-w-600" *ngIf="result" id="exampleModalLabel">Edit SubCategory</h5>
+                                    <button type="button" class="close" aria-label="Close"
+                                        (click)="modal.dismiss('Cross click')">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="needs-validation" [formGroup]='formm' (ngSubmit)="formm.valid && Add()">
+                                        <div class="form" >
+                                            <div class="form-group">
+                                                
+                                                <input class="form-control" 
+                                                formControlName="id"
+                                                [(ngModel)]="subcategorie.id" type="hidden">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="scname" class="mb-1">SubCategory Name :</label>
+                                                <input class="form-control" 
+                                                [class.is-invalid]='formm.get("subCategoryName").errors && formm.get("subCategoryName").touched' 
+                                                formControlName="subCategoryName"
+                                                [(ngModel)]="subcategorie.subCategoryName" type="text">
+                                                <div class="invalid-feedback">Entrez une souscatégorie</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label  class="mb-1">Main category:</label>
+                                                <select class="form-control"
+                                                 type="text"
+                                                [class.is-invalid]='formm.get("mainCategory").errors && formm.get("mainCategory").touched'
+                                                 formControlName="mainCategory"
+                                                 [(ngModel)]="subcategorie.mainCategory">
+                                                   <option *ngFor="let category of categorie | async" [value]="category.id">{{category.categoryName}}</option>
+                                                   <div class="invalid-feedback">Veuillez sélectionner une catégorie</div>
+                                                </select>
+                                               
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" [disabled]="!formm.valid" class="btn btn-primary" *ngIf="!result && !editmode && !categ" >Save</button>
+                                            <button type="submit" class="btn btn-warning" *ngIf="result && editmode" >Edit</button>
+                                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                                (click)="modal.dismiss('Cross click')">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                               
+                            </ng-template>
+                    </div>
+                    
+                </div>
+                
+
+                <div id="batchDelete" class="category-table custom-datatable">
+                    <div class="table-responsive">
+                        <table class="table table-hovered">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Name</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of categories" >
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.categoryName}}</td>
+                                    <td><a (click)="open2(content,item)" data-toggle="modal"><i style="margin-left: 7px;color: tomato;" class="fa fa-edit"></i></a></td>
+                                    <td><a [routerLink]=""  (click)="Delete(item.id)"><i style="margin-left: 14px;" class="fa fa-trash"></i></a></td>                                    
+                                 </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- Container-fluid Ends-->
+  
+  
