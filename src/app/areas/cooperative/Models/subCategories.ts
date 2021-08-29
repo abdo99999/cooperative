@@ -1,5 +1,5 @@
 export interface Subcategories {
-    subCategoryId:number;
+    id:number;
     subCategoryName:string;
 	mainCategoryId:number;
 	isActive:boolean;
